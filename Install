@@ -10,7 +10,7 @@
 #  Purpose:  Checks to see if Configured directories exist
 #  Inputs:
 #
-#      - Configuration files
+#      - Configuration file
 #
 #  Outputs:  None
 #
@@ -34,19 +34,35 @@ then
     exit 1
 fi
 
-# make OUTPUTDIR if it doesn't exist
-if [ ! -d ${OUTPUTDIR} ]
+# make NIB_OUTPUTDIR if it doesn't exist
+if [ ! -d ${NIB_OUTPUTDIR} ]
 then
-    mkdir -p ${OUTPUTDIR} >/dev/null 2>&1
+    mkdir -p ${NIB_OUTPUTDIR} >/dev/null 2>&1
             if [ $? -eq 0 ]
             then
-                  echo "Directory created: ${OUTPUTDIR}"
+                  echo "Directory created: ${NIB_OUTPUTDIR}"
             else
-                  echo "Cannot create directory: ${OUTPUTDIR}"
+                  echo "Cannot create directory: ${NIB_OUTPUTDIR}"
 		  exit 1
             fi
-            chmod -f 755 ${OUTPUTDIR}
+            chmod -f 755 ${NIB_OUTPUTDIR}
         else
-            echo "Directory already exists: ${OUTPUTDIR}"
+            echo "Directory already exists: ${NIB_OUTPUTDIR}"
+fi
+
+# make FA_OUTPUTDIR if it doesn't exist
+if [ ! -d ${FA_OUTPUTDIR} ]
+then
+    mkdir -p ${FA_OUTPUTDIR} >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                  echo "Directory created: ${FA_OUTPUTDIR}"
+            else
+                  echo "Cannot create directory: ${FA_OUTPUTDIR}"
+                  exit 1
+            fi
+            chmod -f 755 ${FA_OUTPUTDIR}
+        else
+            echo "Directory already exists: ${FA_OUTPUTDIR}"
 fi
 
