@@ -1,0 +1,52 @@
+#!/bin/sh
+#  $Header
+#  $Name
+#
+# Install
+# cp Configuration.default Configuration
+# ./Install
+###########################################################################
+#
+#  Purpose:  Checks to see if Configured directories exist
+#  Inputs:
+#
+#      - Configuration files
+#
+#  Outputs:  None
+#
+#  Exit Codes:
+#
+#      0 = Successful completion
+#      1 = An error occurred
+###########################################################################
+
+CONFIG="./Configuration"
+
+cd `dirname $0`
+
+# source Configuration
+. $CONFIG
+
+# make sure ${INPUTDIR} exists
+if [ ! -d ${INPUTDIR} ]
+then
+    echo "${INPUTDIR} does not exist, please check Configuration"
+    exit 1
+fi
+
+# make OUTPUTDIR if it doesn't exist
+if [ ! -d ${OUTPUTDIR} ]
+then
+    mkdir -p ${OUTPUTDIR} >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                  echo "Directory created: ${OUTPUTDIR}"
+            else
+                  echo "Cannot create directory: ${OUTPUTDIR}"
+		  exit 1
+            fi
+            chmod -f 755 ${OUTPUTDIR}
+        else
+            echo "Directory already exists: ${OUTPUTDIR}"
+fi
+

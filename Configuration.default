@@ -1,0 +1,63 @@
+#format: sh
+#######################################################################
+#                                                                     #
+# Configuration for assemblyToNib                                     #
+#                                                                     #
+#######################################################################
+
+#
+# location of assembly chromosome files
+#
+# mouse
+#INPUTDIR=/data/downloads/ftp.ensembl.org/dna/mouse_build_current
+# human
+INPUTDIR=/data/downloads/ftp.ensembl.org/dna/human_build_current
+
+# output directory in which to build nib files
+OUTPUTDIR=/data/research/nib/build_nib
+
+# organism of the assembly
+#ORGANISM=mouse
+ORGANISM=human
+
+export INPUTDIR OUTPUTDIR ORGANISM
+
+# zip utility - both Ensembl and UCSC
+ZIP_UTILITY="/usr/local/bin/gunzip -c"
+
+# zip extension
+
+# Ensembl
+ZIP_EXT=".gz"
+# UCSC
+#ZIP_EXT=".zip"
+
+# Unzipped extension - both Ensembl and UCSC
+UNZIPPED_EXT=".fa"
+
+export ZIP_UTILITY ZIP_EXT UNZIPPED_EXT
+
+# string expression to find the files we want in the input directory
+
+# Ensembl
+FILENAME_PATTERN="*dna.chromosome.*.fa.gz"
+# UCSC
+#FILENAME_PATTERN="chr*.fa.zip"
+
+# nib file extension
+NIB_EXT=".nib"
+
+# char before chromosome number in fasta filename
+
+# Ensembl
+PRE_CHR=.
+# UCSC
+#PRE_CHR=r
+
+# char after chromosome number in fasta filename - both Ensembl and UCSC
+POST_CHR=.
+
+# faToNib executable
+FATONIB=/usr/local/bin/faToNib
+
+export FILENAME_PATTERN NIB_EXT PRE_CHR POST_CHR FATONIB
