@@ -7,7 +7,8 @@
 # ./Install
 ###########################################################################
 #
-#  Purpose:  Checks to see if Configured directories exist
+#  Purpose:  Checks to see if Configured directories exist, creates output
+#	     dirs if they don't exist. 
 #  Inputs:
 #
 #      - Configuration file
