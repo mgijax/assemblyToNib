@@ -1,6 +1,15 @@
+TAG: assemblyToNib-1-0-1
+DATE: 12/22/2004
+STAFF: sc
+RELEASE: Prod
+CHANGES: TR6251
+1) Configuration.default - Added FA_OUTPUTDIR NIB_OUTPUTDIR FA_EXT
+2) Install - added creation of FA_OUTPUTDIR NIB_OUTPUTDIR
+3) assemblyToNib - added logic to save the FASTA files.
+
 TAG: assemblyToNib-1-0-0
 DATE: 11/15/2004
 STAFF: sc
 RELEASE: Prod
-CHANGES: initial version
+CHANGES: TR6251 initial version
 
