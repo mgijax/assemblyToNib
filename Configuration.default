@@ -13,14 +13,15 @@
 # human
 INPUTDIR=/data/downloads/ftp.ensembl.org/dna/human_build_current
 
-# output directory in which to build nib files
-OUTPUTDIR=/data/research/nib/build_nib
+# output directories in which to build fa and nib files
+FA_OUTPUTDIR=/data/research/dna/build_fa
+NIB_OUTPUTDIR=/data/research/dna/build_nib
 
 # organism of the assembly
 #ORGANISM=mouse
 ORGANISM=human
 
-export INPUTDIR OUTPUTDIR ORGANISM
+export INPUTDIR FA_OUTPUTDIR NIB_OUTPUTDIR ORGANISM
 
 # zip utility - both Ensembl and UCSC
 ZIP_UTILITY="/usr/local/bin/gunzip -c"
@@ -47,6 +48,9 @@ FILENAME_PATTERN="*dna.chromosome.*.fa.gz"
 # nib file extension
 NIB_EXT=".nib"
 
+# fa file extension
+FA_EXT=".fa"
+
 # char before chromosome number in fasta filename
 
 # Ensembl
@@ -60,4 +64,4 @@ POST_CHR=.
 # faToNib executable
 FATONIB=/usr/local/bin/faToNib
 
-export FILENAME_PATTERN NIB_EXT PRE_CHR POST_CHR FATONIB
+export FILENAME_PATTERN NIB_EXT FA_EXT PRE_CHR POST_CHR FATONIB
