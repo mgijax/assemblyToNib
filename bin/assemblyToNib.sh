@@ -10,9 +10,8 @@
 #  Purpose:  This script unzips and nib formats the assembly fasta files and
 #            renames them for use by the seqfetch tool and the BLAT server
 #
-#  Usage:
+#  Usage: assemblyToNib.sh
 #
-    usage="assemblyToNib.sh"
 #
 #  Env Vars:
 #
@@ -42,6 +41,7 @@
 #
 ###########################################################################
 
+usage="assemblyToNib.sh"
 
 # list of mouse chromosomes
 mouseChrList="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 X Y M"
@@ -82,6 +82,33 @@ fi
 . ${CONFIG}
 
 #
+#  Make sure the master configuration file is readable
+#
+
+if [ ! -r ${CONFIG_MASTER} ]
+then
+    echo "Cannot read configuration file: ${CONFIG_MASTER}"
+    exit 1
+fi
+
+#
+#  Source the DLA library functions.
+#
+if [ "${DLAJOBSTREAMFUNC}" != "" ]
+then
+    if [ -r ${DLAJOBSTREAMFUNC} ]
+    then
+        . ${DLAJOBSTREAMFUNC}
+    else
+        echo "Cannot source DLA functions script: ${DLAJOBSTREAMFUNC}"
+        exit 1
+    fi
+else
+    echo "Environment variable DLAJOBSTREAMFUNC has not been defined."
+    exit 1
+fi
+
+#
 # get the chromosome list for the requested organism
 #
 
@@ -98,15 +125,21 @@ else
     exit 1
 fi
 
+###########################################################################
+#
+# main
+#
+###########################################################################
+
 #
 # clean out the output directories
 #
 
 echo "removing all files from ${NIB_OUTPUTDIR}" | tee -a ${LOG}
-rm -f ${NIB_OUTPUTDIR}/*
+cleanDir ${NIB_OUTPUTDIR}
 
 echo "removing all files from ${FA_OUTPUTDIR}" | tee -a ${LOG}
-rm -f ${FA_OUTPUTDIR}/*
+cleanDir ${FA_OUTPUTDIR}
 
 #
 # go to the input directory and get the list of chromosome files 

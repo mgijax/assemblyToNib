@@ -1,10 +1,9 @@
 #!/bin/sh
-#  $Header
-#  $Name
 #
-# Install
-# cp Configuration.default Configuration
-# ./Install
+# Installation script for assemblyToNib
+#
+# 1) cp Configuration.default Configuration
+# 2) Install
 ###########################################################################
 #
 #  Purpose:  Checks to see if Configured directories exist, creates output
@@ -20,19 +19,48 @@
 #      0 = Successful completion
 #      1 = An error occurred
 ###########################################################################
+usage=Install
 
-CONFIG="./Configuration"
+#
+#  Function called when the install fails.
+#
+installFailed ()
+{
+    echo "Installation Failed: `date`"
+    exit 1
+}
+
+#
+#  Verify the arguments to the script, there shouldn't be any
+#
+if [ $# -ne 0 ]
+then
+    echo "Usage: ${usage}"
+    installFailed
+fi
+
+#
+# Make sure config file exists and source it
+#
 
 cd `dirname $0`
+CONFIG="./Configuration"
 
-# source Configuration
-. $CONFIG
+if [ -r ${CONFIG} ]
+then
+    echo "Source ${CONFIG}"
+    . ${CONFIG}
+else
+    echo "Cannot source configuration file: ${CONFIG}"
+    installFailed
+fi
+
 
 # make sure ${INPUTDIR} exists
 if [ ! -d ${INPUTDIR} ]
 then
     echo "${INPUTDIR} does not exist, please check Configuration"
-    exit 1
+    installFailed
 fi
 
 # make NIB_OUTPUTDIR if it doesn't exist
@@ -44,7 +72,7 @@ then
                   echo "Directory created: ${NIB_OUTPUTDIR}"
             else
                   echo "Cannot create directory: ${NIB_OUTPUTDIR}"
-		  exit 1
+		  installFailed
             fi
             chmod -f 755 ${NIB_OUTPUTDIR}
         else
@@ -60,7 +88,7 @@ then
                   echo "Directory created: ${FA_OUTPUTDIR}"
             else
                   echo "Cannot create directory: ${FA_OUTPUTDIR}"
-                  exit 1
+                  installFailed
             fi
             chmod -f 755 ${FA_OUTPUTDIR}
         else
