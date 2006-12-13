@@ -30,15 +30,31 @@ export CONFIG_MASTER
 # human
 INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/human_build_current
 
+export INPUTDIR
+
 # output directories in which to build fa and nib files
 FA_OUTPUTDIR=/data/research/dna/build_fa
 NIB_OUTPUTDIR=/data/research/dna/build_nib
+FILEDIR=${DATALOADSOUTPUT}/mgi/assemblyToNib
+
+export FA_OUTPUTDIR NIB_OUTPUTDIR FILEDIR
+
+LOGDIR=${FILEDIR}/logs
+LOG_DIAG=${LOGDIR}/assemblyToNib.diag.log
+LOG_PROC=${LOGDIR}/assemblyToNib.proc.log
+ARCHIVEDIR=${FILEDIR}/archive
+
+export LOGDIR LOG_DIAG LOG_PROC ARCHIVEDIR
+
+JOBSTREAM=assemblytonib
+
+export JOBSTREAM
 
 # organism of the assembly
 #ORGANISM=mouse
 ORGANISM=human
 
-export INPUTDIR FA_OUTPUTDIR NIB_OUTPUTDIR ORGANISM
+export ORGANISM
 
 # zip utility - both Ensembl and UCSC
 ZIP_UTILITY="/usr/local/bin/gunzip -c"
@@ -82,3 +98,8 @@ POST_CHR=.
 FATONIB=/usr/local/bin/faToNib
 
 export FILENAME_PATTERN NIB_EXT FA_EXT PRE_CHR POST_CHR FATONIB
+
+#  The name of the load for the subject of an email notification
+MAIL_LOADNAME="Assembly To Nib"
+
+export MAIL_LOADNAME
