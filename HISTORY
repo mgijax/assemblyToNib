@@ -1,3 +1,12 @@
+TAG: assemblyToNib-1-0-4
+DATE: 12/13/2006
+STAFF: sc
+CHANGES: from writing load documentation
+1) Configuration.default - added more DLA configuration settings
+2) Install - added creation of LOGDIR and ARCHIVEDIR
+3) system_docs - updated
+4) index.html - added
+
 TAG: assemblyToNib-1-0-3
 DATE: 10/11/2006
 STAFF: sc
