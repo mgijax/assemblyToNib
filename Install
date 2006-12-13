@@ -95,3 +95,35 @@ then
             echo "Directory already exists: ${FA_OUTPUTDIR}"
 fi
 
+# make LOGDIR if it doesn't exist
+if [ ! -d ${LOGDIR} ]
+then
+    mkdir -p ${LOGDIR} >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                  echo "Directory created: ${LOGDIR}"
+            else
+                  echo "Cannot create directory: ${LOGDIR}"
+                  installFailed
+            fi
+            chmod -f 755 ${LOGDIR}
+        else
+            echo "Directory already exists: ${LOGDIR}"
+fi
+
+# make ARCHIVEDIR if it doesn't exist
+if [ ! -d ${ARCHIVEDIR} ]
+then
+    mkdir -p ${ARCHIVEDIR} >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                  echo "Directory created: ${ARCHIVEDIR}"
+            else
+                  echo "Cannot create directory: ${ARCHIVEDIR}"
+                  installFailed
+            fi
+            chmod -f 755 ${ARCHIVEDIR}
+        else
+            echo "Directory already exists: ${ARCHIVEDIR}"
+fi
+
