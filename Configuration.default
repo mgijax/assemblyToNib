@@ -22,13 +22,19 @@ export CONFIG_MASTER
 
 . ${CONFIG_MASTER}
 
+# organism of the assembly
+ORGANISM=mouse
+#ORGANISM=human
+
+export ORGANISM
+
 #
 # location of assembly chromosome files
 #
 # mouse
-#INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/mouse_build_current
+INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/genomes/M_musculus_Build37
 # human
-INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/human_build_current
+#INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/human_build_current
 
 export INPUTDIR
 
@@ -50,23 +56,18 @@ JOBSTREAM=assemblytonib
 
 export JOBSTREAM
 
-# organism of the assembly
-#ORGANISM=mouse
-ORGANISM=human
 
-export ORGANISM
-
-# zip utility - both Ensembl and UCSC
+# zip utility - all (Ensembl, UCSC, and NCBI)
 ZIP_UTILITY="/usr/local/bin/gunzip -c"
 
 # zip extension
 
-# Ensembl
+# Ensembl and NCBI
 ZIP_EXT=".gz"
 # UCSC
 #ZIP_EXT=".zip"
 
-# Unzipped extension - both Ensembl and UCSC
+# Unzipped extension - all (Ensembl, UCSC, and NCBI)
 UNZIPPED_EXT=".fa"
 
 export ZIP_UTILITY ZIP_EXT UNZIPPED_EXT
@@ -74,9 +75,11 @@ export ZIP_UTILITY ZIP_EXT UNZIPPED_EXT
 # string expression to find the files we want in the input directory
 
 # Ensembl
-FILENAME_PATTERN="*dna.chromosome.*.fa.gz"
+#FILENAME_PATTERN="*dna.chromosome.*.fa.gz"
 # UCSC
 #FILENAME_PATTERN="chr*.fa.zip"
+# NCBI
+FILENAME_PATTERN=mm_ref_chr*.fa.gz
 
 # nib file extension
 NIB_EXT=".nib"
@@ -87,11 +90,11 @@ FA_EXT=".fa"
 # char before chromosome number in fasta filename
 
 # Ensembl
-PRE_CHR=.
-# UCSC
+#PRE_CHR=.
+# UCSC, NCBI
 #PRE_CHR=r
 
-# char after chromosome number in fasta filename - both Ensembl and UCSC
+# char after chromosome number in fasta filename - all
 POST_CHR=.
 
 # faToNib executable
