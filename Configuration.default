@@ -92,7 +92,7 @@ FA_EXT=".fa"
 # Ensembl
 #PRE_CHR=.
 # UCSC, NCBI
-#PRE_CHR=r
+PRE_CHR=r
 
 # char after chromosome number in fasta filename - all
 POST_CHR=.
