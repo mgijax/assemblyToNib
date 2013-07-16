@@ -168,7 +168,7 @@ do
 	echo "uncompressing ${INPUTDIR}/$f to ${FA_OUTPUTDIR}/${prefix}" >> ${LOG_DIAG}
 
 	# decompress to output directory
-	${ZIP_UTILITY} $f >> ${FA_OUTPUTDIR}/${prefix} 
+	gunzip $f >> ${FA_OUTPUTDIR}/${prefix} 
         STAT=$?
 	checkStatus ${STAT} "uncompress $f"
 done 

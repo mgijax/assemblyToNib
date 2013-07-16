@@ -32,7 +32,7 @@ export ORGANISM
 # location of assembly chromosome files
 #
 # mouse
-INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/genomes/M_musculus_Build37
+INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/genomes/M_musculus_Build38
 # human
 #INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/human_build_current
 
@@ -58,7 +58,7 @@ export JOBSTREAM
 
 
 # zip utility - all (Ensembl, UCSC, and NCBI)
-ZIP_UTILITY="/usr/local/bin/gunzip -c"
+#ZIP_UTILITY="/usr/local/bin/gunzip -c"
 
 # zip extension
 
