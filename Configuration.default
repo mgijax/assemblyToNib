@@ -79,7 +79,7 @@ export ZIP_UTILITY ZIP_EXT UNZIPPED_EXT
 # UCSC
 #FILENAME_PATTERN="chr*.fa.zip"
 # NCBI
-FILENAME_PATTERN=mm_ref_chr*.fa.gz
+FILENAME_PATTERN=chr*.fa.gz
 
 # nib file extension
 NIB_EXT=".nib"
