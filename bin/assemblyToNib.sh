@@ -154,7 +154,7 @@ do
 	echo "uncompressing ${INPUTDIR}/$f to ${FA_OUTPUTDIR}/${prefix}" >> ${LOG_DIAG}
 
 	# decompress to output directory
-	gunzip -c $f >> ${FA_OUTPUTDIR}/${prefix} 
+	gunzip -c $f > ${FA_OUTPUTDIR}/${prefix} 
         STAT=$?
 	if [ ${STAT} -ne 0 ] 
 	then	
