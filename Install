@@ -127,3 +127,25 @@ then
             echo "Directory already exists: ${ARCHIVEDIR}"
 fi
 
+# create just a log directory for the stop/start blat server scripts
+if [ ! -d ${GFSERVER_LOGDIR} ]
+        then
+            mkdir -p ${GFSERVER_LOGDIR} >/dev/null 2>&1
+            if [ $? -eq 0 ]
+            then
+                  echo "Directory created: ${GFSERVER_LOGDIR}"
+            else
+                  echo "Cannot create directory: ${GFSERVER_LOGDIR}"
+                  installFailed
+            fi
+        else
+            echo "Directory already exists: ${GFSERVER_LOGDIR}"
+        fi
+
+        if [ "${DEV}" = "yes" ]
+        then
+            chmod -f 775 ${GFSERVER_LOGDIR}
+        else
+            chmod -f 755 ${GFSERVER_LOGDIR}
+        fi
+
