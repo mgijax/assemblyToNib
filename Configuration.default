@@ -93,8 +93,12 @@ PRE_CHR=r
 # char after chromosome number in fasta filename - all
 POST_CHR=.
 
-# faToNib executable
+# faToNib executable, default is linux, test for solaris
 FATONIB=/usr/local/BlatSuite-33/faToNib
+if [ $HOST = 'rohan' -o $HOST = 'hobbiton' ]
+then
+    FATONIB=/usr/local/bin/faToNib
+fi
 
 export FILENAME_PATTERN NIB_EXT FA_EXT PRE_CHR POST_CHR FATONIB
 

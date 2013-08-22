@@ -69,7 +69,6 @@ fi
 #  Establish the configuration file name
 #
 CONFIG_LOAD=`pwd`/Configuration
-
 #
 #  Make sure the configuration file is readable
 #
@@ -175,11 +174,14 @@ echo "Renaming files\n" >> ${LOG_DIAG} ${LOG_PROC}
 for chr in ${chrList}
 do
         echo "renaming *${PRE_CHR}${chr}${POST_CHR}* to chr${chr}${FA_EXT}" | tee -a ${LOG_DIAG} 
-        mv *${PRE_CHR}$chr${POST_CHR}* chr${chr}${FA_EXT} >> ${LOG_DIAG}
-	STAT=$?
-	if [ ${STAT} -ne 0 ]
-	then	
-            "renaming chromosome  ${chr} file failed" | tee -a ${LOG_DIAG}
+	if [ *${PRE_CHR}$chr${POST_CHR}* != chr${chr}${FA_EXT} ]
+	then
+	    mv *${PRE_CHR}$chr${POST_CHR}* chr${chr}${FA_EXT} >> ${LOG_DIAG}
+	    STAT=$?
+	    if [ ${STAT} -ne 0 ]
+	    then	
+		"renaming chromosome  ${chr} file failed" | tee -a ${LOG_DIAG}
+	    fi
 	fi
 done
 
