@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh -x
 
 #
 #  $Header
@@ -44,7 +44,7 @@
 usage="assemblyToNib.sh"
 
 # list of mouse chromosomes
-mouseChrList="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 X Y"
+mouseChrList="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 X Y MT"
 
 # list of human chromosomes
 humanChrList="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 X Y"
@@ -69,7 +69,6 @@ fi
 #  Establish the configuration file name
 #
 CONFIG_LOAD=`pwd`/Configuration
-
 #
 #  Make sure the configuration file is readable
 #
@@ -94,27 +93,17 @@ then
     exit 1
 fi
 
-#
-#  Source the DLA library functions.
-#
-if [ "${DLAJOBSTREAMFUNC}" != "" ]
+if [ -r ${LOG_DIAG} ]
 then
-    if [ -r ${DLAJOBSTREAMFUNC} ]
-    then
-        . ${DLAJOBSTREAMFUNC}
-    else
-        echo "Cannot source DLA functions script: ${DLAJOBSTREAMFUNC}" | tee -a ${LOG}
-        exit 1
-    fi
-else
-    echo "Environment variable DLAJOBSTREAMFUNC has not been defined." | tee -a ${LOG}
-    exit 1
+    rm ${LOG_DIAG}
 fi
+touch ${LOG_DIAG}
 
-#
-# createArchive, startLog, getConfigEnv, get job key
-#
-preload
+if [ -r ${LOG_PROC} ]
+then
+    rm ${LOG_PROC}
+fi
+touch ${LOG_PROC}
 
 #
 # get the chromosome list for the requested organism
@@ -143,23 +132,19 @@ fi
 # clean out the output directories
 #
 
-echo "removing all files from ${NIB_OUTPUTDIR}" >> ${LOG_DIAG} ${LOG_PROC}
-cleanDir ${NIB_OUTPUTDIR} 
-
-echo "removing all files from ${FA_OUTPUTDIR}" >> ${LOG_DIAG} ${LOG_PROC}
-cleanDir ${FA_OUTPUTDIR} 
-
 #
 # go to the input directory and get the list of chromosome files 
 #
 
 cd ${INPUTDIR}
 zipped_files=`ls ${FILENAME_PATTERN}`
+echo "INPUTDIR: $INPUTDIR"
+echo "zipped_files: $zipped_files"
 
 #
 # unzip the chromosome files to the FASTA output directory
 # 
-echo "Uncompressing chromosome files\n" >> ${LOG_DIAG} ${LOG_PROC}
+echo "Uncompressing chromosome files\n" >> ${LOG_DIAG} 
 
 for f in ${zipped_files}
 do
@@ -168,9 +153,12 @@ do
 	echo "uncompressing ${INPUTDIR}/$f to ${FA_OUTPUTDIR}/${prefix}" >> ${LOG_DIAG}
 
 	# decompress to output directory
-	gunzip $f >> ${FA_OUTPUTDIR}/${prefix} 
+	gunzip -c $f > ${FA_OUTPUTDIR}/${prefix} 
         STAT=$?
-	checkStatus ${STAT} "uncompress $f"
+	if [ ${STAT} -ne 0 ] 
+	then	
+	    "gunzip $f failed" | tee -a ${LOG_DIAG} 
+	fi
 done 
 
 #
@@ -185,10 +173,16 @@ cd ${FA_OUTPUTDIR}
 echo "Renaming files\n" >> ${LOG_DIAG} ${LOG_PROC} 
 for chr in ${chrList}
 do
-        echo "renaming *${PRE_CHR}${chr}${POST_CHR}* to chr${chr}${FA_EXT}" >> ${LOG_DIAG} 
-        mv *${PRE_CHR}$chr${POST_CHR}* chr${chr}${FA_EXT} >> ${LOG_DIAG}
-	STAT=$?
-        checkStatus ${STAT} "renaming chromosome ${chr} file"
+        echo "renaming *${PRE_CHR}${chr}${POST_CHR}* to chr${chr}${FA_EXT}" | tee -a ${LOG_DIAG} 
+	if [ *${PRE_CHR}$chr${POST_CHR}* != chr${chr}${FA_EXT} ]
+	then
+	    mv *${PRE_CHR}$chr${POST_CHR}* chr${chr}${FA_EXT} >> ${LOG_DIAG}
+	    STAT=$?
+	    if [ ${STAT} -ne 0 ]
+	    then	
+		"renaming chromosome  ${chr} file failed" | tee -a ${LOG_DIAG}
+	    fi
+	fi
 done
 
 #
@@ -199,7 +193,7 @@ done
 
 unzipped_files=`ls *${UNZIPPED_EXT}`
 
-echo "running faToNib\n" >> ${LOG_DIAG} ${LOG_PROC}
+echo "running  ${FATONIB}\n" >> ${LOG_DIAG} ${LOG_PROC}
  
 # faToNib each file adding nib extension 
 for f in ${unzipped_files}
@@ -208,8 +202,11 @@ do   	prefix=`echo $f | sed "s/${FA_EXT}//"`
         # don't redirect output to log, stdout is huge
         ${FATONIB} $f ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT} >> ${LOG_DIAG}
 	STAT=$?
-        checkStatus ${STAT} "faToNib $f"
+        if [ ${STAT} -ne 0 ] 
+	then
+            "faToNib $f failed" | tee -a ${LOG_DIAG}
+	fi
+	
 done 
 
 date >> ${LOG}
-postload

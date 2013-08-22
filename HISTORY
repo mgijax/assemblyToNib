@@ -1,3 +1,33 @@
+TAG: assemblyToNib-5-1-5-1
+date: 08/22/2013
+STAFF: sc
+CHANGES: merge tr11353 changes to the trunk
+
+TAG: assemblyToNib-tr11353-3
+date: 08/22/2013
+STAFF: sc
+CHANGES:
+1) Configuration - setting FATONIB, added test for $HOST to differentiate
+    path on linux vs solaris
+2) bin/assemblyToNib.sh - don't rename files if file names are the same
+
+TAG: assemblyToNib-tr11353-2
+TAG: assemblyToNib-tr11353-1
+date: 07/29/2013
+STAFF: sc
+CHANGES: 
+1) Configuration
+- removed ZIP_UTILITY (wrapper won't use full path as diff on linux and solaris)
+- updated FATONIB to path on linux
+- Added GFCLIENT, GFSERVER, GFSERVER_LOGDIR - for start/stop blat server scripts
+   moved from blatpipeline
+2) bin/assemblyToNib.sh 
+- removed calls to dla jobstream functions - i.e. logging jobstream in 
+  radar as it requires sybase and is overkill for this simple process
+- use gunzip directly, not full configured path
+3) Install - create gfserver log directories for blat stop/start scripts
+4) Added bin/start_blatserver.sh bin/stop_blatserver.sh
+
 TAG: assemblyToNib-tr11353-BP
 date: 07/29/2013
 STAFF: sc
