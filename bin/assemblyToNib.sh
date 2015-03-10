@@ -144,7 +144,8 @@ echo "zipped_files: $zipped_files"
 #
 # unzip the chromosome files to the FASTA output directory
 # 
-echo "Uncompressing chromosome files\n" >> ${LOG_DIAG} 
+echo "Uncompressing chromosome files" >> ${LOG_DIAG} 
+echo "" >> ${LOG_DIAG} 
 
 for f in ${zipped_files}
 do
@@ -170,7 +171,8 @@ done
 # their filenames thus the use of PRE_CHAR and POST_CHAR
 cd ${FA_OUTPUTDIR}
 
-echo "Renaming files\n" >> ${LOG_DIAG} ${LOG_PROC} 
+echo "Renaming files" >> ${LOG_DIAG} ${LOG_PROC} 
+echo "" >> ${LOG_DIAG} ${LOG_PROC} 
 for chr in ${chrList}
 do
         echo "renaming *${PRE_CHR}${chr}${POST_CHR}* to chr${chr}${FA_EXT}" | tee -a ${LOG_DIAG} 
@@ -193,7 +195,8 @@ done
 
 unzipped_files=`ls *${UNZIPPED_EXT}`
 
-echo "running  ${FATONIB}\n" >> ${LOG_DIAG} ${LOG_PROC}
+echo "running  ${FATONIB}" >> ${LOG_DIAG} ${LOG_PROC}
+echo "" >> ${LOG_DIAG} ${LOG_PROC}
  
 # faToNib each file adding nib extension 
 for f in ${unzipped_files}
