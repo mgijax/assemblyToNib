@@ -149,3 +149,4 @@ if [ ! -d ${GFSERVER_LOGDIR} ]
             chmod -f 755 ${GFSERVER_LOGDIR}
         fi
 
+exit 0
