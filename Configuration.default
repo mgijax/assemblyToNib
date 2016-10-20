@@ -27,7 +27,11 @@ ORGANISM=mouse
 #ORGANISM=human
 
 export ORGANISM
+#
+# Blat version to use
+BLAT_DIR=blatsuite33
 
+export BLAT_DIR
 #
 # location of assembly chromosome files
 #
@@ -94,11 +98,7 @@ PRE_CHR=r
 POST_CHR=.
 
 # faToNib executable, default is linux, test for solaris
-FATONIB=/usr/local/BlatSuite-33/faToNib
-if [ $HOST = 'rohan' -o $HOST = 'hobbiton' ]
-then
-    FATONIB=/usr/local/bin/faToNib
-fi
+FATONIB=/usr/local/$BLAT_DIR/faToNib
 
 export FILENAME_PATTERN NIB_EXT FA_EXT PRE_CHR POST_CHR FATONIB
 
@@ -111,10 +111,10 @@ export MAIL_LOADNAME
 # BLAT parameters
 ########################################################
 # The blat client
-GFCLIENT=/usr/local/BlatSuite-33/gfClient
+GFCLIENT=/usr/local/$BLAT_DIR/gfClient
 
 # The blat server
-GFSERVER=/usr/local/BlatSuite-33/gfServer
+GFSERVER=/usr/local/$BLAT_DIR/gfServer
 
 export GFCLIENT GFSERVER
 
