@@ -116,7 +116,11 @@ GFCLIENT=/usr/local/$BLAT_DIR/gfClient
 # The blat server
 GFSERVER=/usr/local/$BLAT_DIR/gfServer
 
-export GFCLIENT GFSERVER
+#
+# Blat server assigned port
+GFPORT=9038
+
+export GFCLIENT GFSERVER GFPORT
 
 # log directory for start/stop blat server scripts
 GFSERVER_LOGDIR=${DATALOADSOUTPUT}/mgi/assemblyToNib/blatserver/logs
