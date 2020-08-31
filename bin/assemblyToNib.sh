@@ -99,12 +99,6 @@ then
 fi
 touch ${LOG_DIAG}
 
-if [ -r ${LOG_PROC} ]
-then
-    rm ${LOG_PROC}
-fi
-touch ${LOG_PROC}
-
 #
 # get the chromosome list for the requested organism
 #
@@ -171,8 +165,8 @@ done
 # their filenames thus the use of PRE_CHAR and POST_CHAR
 cd ${FA_OUTPUTDIR}
 
-echo "Renaming files" >> ${LOG_DIAG} ${LOG_PROC} 
-echo "" >> ${LOG_DIAG} ${LOG_PROC} 
+echo "Renaming files" >> ${LOG_DIAG} 
+echo "" >> ${LOG_DIAG} 
 for chr in ${chrList}
 do
         echo "renaming *${PRE_CHR}${chr}${POST_CHR}* to chr${chr}${FA_EXT}" | tee -a ${LOG_DIAG} 
@@ -195,15 +189,16 @@ done
 
 unzipped_files=`ls *${UNZIPPED_EXT}`
 
-echo "running  ${FATONIB}" >> ${LOG_DIAG} ${LOG_PROC}
-echo "" >> ${LOG_DIAG} ${LOG_PROC}
+echo "running  ${FATONIB}" >> ${LOG_DIAG} 
+echo "" >> ${LOG_DIAG} 
  
 # faToNib each file adding nib extension 
 for f in ${unzipped_files}
 do   	prefix=`echo $f | sed "s/${FA_EXT}//"`
-	echo  "Performing faToNib on $f and writing to ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT}" >> ${LOG_DIAG}
+	echo  "Performing faToNib on $f and writing to ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT}" | tee -a ${LOG_DIAG}
         # don't redirect output to log, stdout is huge
-        ${FATONIB} $f ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT} >> ${LOG_DIAG}
+        echo "Call: ${FATONIB} $f ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT}"
+        ${FATONIB} $f ${NIB_OUTPUTDIR}/`basename $prefix`${NIB_EXT} | tee -a ${LOG_DIAG}
 	STAT=$?
         if [ ${STAT} -ne 0 ] 
 	then

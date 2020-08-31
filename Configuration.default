@@ -29,14 +29,15 @@ ORGANISM=mouse
 export ORGANISM
 #
 # Blat version to use
-BLAT_DIR=blatsuite33
+#BLAT_DIR=blatsuite33
+BLAT_DIR=bin
 
 export BLAT_DIR
 #
 # location of assembly chromosome files
 #
 # mouse
-INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/genomes/M_musculus_Build38
+INPUTDIR=${DATADOWNLOADS}/ftp.ncbi.nih.gov/genomes/M_musculus_Build39
 # human
 #INPUTDIR=${DATADOWNLOADS}/ftp.ensembl.org/dna/human_build_current
 
@@ -79,7 +80,7 @@ export ZIP_UTILITY ZIP_EXT UNZIPPED_EXT
 # UCSC
 #FILENAME_PATTERN="chr*.fa.zip"
 # NCBI
-FILENAME_PATTERN=chr*.fa.gz
+FILENAME_PATTERN=chr*.fna.gz
 
 # nib file extension
 NIB_EXT=".nib"
@@ -99,7 +100,6 @@ POST_CHR=.
 
 # faToNib executable, default is linux, test for solaris
 FATONIB=/usr/local/$BLAT_DIR/faToNib
-
 export FILENAME_PATTERN NIB_EXT FA_EXT PRE_CHR POST_CHR FATONIB
 
 #  The name of the load for the subject of an email notification
