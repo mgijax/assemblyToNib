@@ -110,17 +110,10 @@ export MAIL_LOADNAME
 ########################################################
 # BLAT parameters
 ########################################################
-# The blat client
-GFCLIENT=/usr/local/$BLAT_DIR/gfClient
-
 # The blat server
 GFSERVER=/usr/local/$BLAT_DIR/gfServer
 
-#
-# Blat server assigned port
-GFPORT=9039
-
-export GFCLIENT GFSERVER GFPORT
+export GFSERVER
 
 # log directory for start/stop blat server scripts
 GFSERVER_LOGDIR=${DATALOADSOUTPUT}/mgi/assemblyToNib/blatserver/logs
